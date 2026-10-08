@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>30 Days of Machine Learning — From Zero to ML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f5f6f8;--surface:#fff;--ink:#0b1b33;--muted:#5a6578;--line:#e2e6ed;--navy:#0b1b33;--navy2:#13294b;--gold:#b8893b;--gold-soft:#f4ead7;--accent:#1f4fd8;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070d1a;--surface:#0e1830;--ink:#eef2f9;--muted:#9aa7bd;--line:#1e2c4a;--gold:#d4a85a;--gold-soft:#241d10;--accent:#7ea2ff}}
+:root[data-theme="dark"]{--bg:#070d1a;--surface:#0e1830;--ink:#eef2f9;--muted:#9aa7bd;--line:#1e2c4a;--gold:#d4a85a;--gold-soft:#241d10;--accent:#7ea2ff}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:700;letter-spacing:.02em;font-size:14px;display:flex;align-items:center;gap:10px}
+.brand i{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--gold),#e7c987);display:inline-block}
+.links{display:flex;gap:20px;font-size:13px;color:var(--muted);font-weight:500;overflow-x:auto;white-space:nowrap}
+.links a:hover{color:var(--ink)}
+@media(max-width:720px){.links{display:none}}
+.hero{background:radial-gradient(1200px 500px at 85% -10%,#254a8f55,transparent),linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:96px 0 88px}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#e7c987;font-weight:600}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,7vw,72px);line-height:1.04;margin:18px 0 20px;letter-spacing:-.02em}
+h1 em{font-style:normal;color:#e7c987}
+.hero p{max-width:620px;font-size:18px;color:#c4cee0;margin:0 0 36px}
+.cta{display:inline-block;background:#e7c987;color:#0b1b33;font-weight:600;font-size:15px;padding:14px 26px;border-radius:10px}
+.cta.ghost{background:transparent;color:#fff;border:1px solid #ffffff44;margin-left:10px}
+.stats{margin-top:-44px;position:relative;z-index:2}
+.stats .grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 50px -24px #0b1b3340}
+.stat{padding:26px 28px;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat b{display:block;font-family:var(--serif);font-size:34px;font-weight:600}
+.stat span{font-size:13px;color:var(--muted)}
+@media(max-width:720px){.stats .grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+section.block{padding:84px 0 0}
+.sec-h{max-width:640px;margin-bottom:36px}
+.sec-h h2{font-family:var(--serif);font-size:clamp(28px,4vw,38px);margin:10px 0 12px;letter-spacing:-.01em;line-height:1.15}
+.sec-h p{color:var(--muted);margin:0}
+.journey{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.journey div{flex:1 1 150px;padding:18px 20px;border-right:1px solid var(--line);font-size:14px;font-weight:600}
+.journey div:last-child{border:0}
+.journey small{display:block;color:var(--gold);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.part{padding-top:72px}
+.part-head{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:24px}
+.part-head .n{font-family:var(--serif);font-size:44px;color:var(--gold);line-height:1}
+.part-head h3{margin:0;font-size:22px;letter-spacing:-.01em}
+.part-head p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 14px 30px -18px #0b1b3355}
+.day{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.card h4{margin:8px 0 8px;font-size:16px;line-height:1.3}
+.card p{margin:0;font-size:13px;color:var(--muted)}
+.card p::before{content:"You will understand: ";display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:.55;font-weight:600;margin-bottom:2px}
+.outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.outcomes div{background:var(--gold-soft);border-radius:14px;padding:24px}
+.outcomes b{display:block;margin-bottom:6px;font-size:16px}
+.outcomes span{font-size:14px;color:var(--muted)}
+@media(max-width:720px){.outcomes{grid-template-columns:1fr}}
+.final{margin:96px 0 0;background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:72px 0;text-align:center}
+.final h2{font-family:var(--serif);font-size:clamp(28px,4.5vw,44px);margin:0 0 14px}
+.final p{color:#c4cee0;max-width:540px;margin:0 auto 28px}
+footer{padding:28px 0;font-size:13px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="#top"><i></i>30 Days of ML</a>
+<div class="links" id="nav"></div></div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+<div class="eyebrow">30 Days · 30 Minutes · From Zero to ML</div>
+<h1>Genuinely understand <em>Machine Learning</em> in 30 days.</h1>
+<p>A structured, progressive programme that builds real understanding, not memorized definitions. One focused 30-minute lesson a day, from your first concept to your first trained model.</p>
+<a class="cta" href="#part-1">View the curriculum</a><a class="cta ghost" href="#roadmap">The learning journey</a>
+</div></header>
+
+<div class="stats"><div class="wrap"><div class="grid">
+<div class="stat"><b>30</b><span>Daily lessons</span></div>
+<div class="stat"><b>30 min</b><span>Per day</span></div>
+<div class="stat"><b>6</b><span>Progressive parts</span></div>
+<div class="stat"><b>15 hrs</b><span>Total commitment</span></div>
+</div></div></div>
+
+<section class="block" id="roadmap"><div class="wrap">
+<div class="sec-h"><div class="eyebrow" style="color:var(--gold)">The journey</div><h2>A single, logical path</h2><p>Every part builds on the last, so each new idea has a foundation to stand on.</p></div>
+<div class="journey">
+<div><small>Step 1</small>What ML is</div><div><small>Step 2</small>How it learns</div><div><small>Step 3</small>How models work</div><div><small>Step 4</small>How we train them</div><div><small>Step 5</small>How we evaluate</div><div><small>Step 6</small>Real-life use</div>
+</div></div></section>
+
+<main class="wrap" id="parts"></main>
+
+<section class="block"><div class="wrap">
+<div class="sec-h"><div class="eyebrow" style="color:var(--gold)">Outcomes</div><h2>What you walk away with</h2></div>
+<div class="outcomes">
+<div><b>Conceptual clarity</b><span>You can explain how a model learns, predicts and fails, in plain language.</span></div>
+<div><b>Practical skill</b><span>You can take a dataset through the full workflow and train, test and evaluate a model.</span></div>
+<div><b>A clear next step</b><span>You know when to use classic ML versus deep learning, and where to go next.</span></div>
+</div></div></section>
+
+<section class="final"><div class="wrap"><h2>Start with Day 01 today.</h2><p>Thirty minutes a day. Thirty days. A real foundation in Machine Learning.</p><a class="cta" href="#part-1">Begin the challenge</a></div></section>
+<footer><div class="wrap">30 Days of Machine Learning · From Zero to ML</div></footer>
+
+<script>
+var P=[
+["Understand Machine Learning","Build the mental model before touching any algorithm.",[
+["What is Machine Learning?","What ML actually means"],["AI vs ML vs Deep Learning","How they differ"],["How Does ML Learn?","Learning from examples"],["What is Data?","Why data matters"],["Features & Labels","What goes into an ML model"]]],
+["How ML Learns","See the core mechanics of learning, testing and predicting.",[
+["Training Data","How models learn"],["Testing Data","How we check learning"],["Model","What an ML model actually is"],["Prediction","How a model makes predictions"],["Training an ML Model","The complete basic process"]]],
+["Types of Machine Learning","Learn the main families and when each applies.",[
+["Supervised Learning","Learning with labeled data"],["Regression","Predicting numbers"],["Classification","Predicting categories"],["Unsupervised Learning","Finding patterns"],["Clustering","Grouping similar data"]]],
+["ML Algorithms","Meet the essential algorithms behind everyday ML.",[
+["Linear Regression","First prediction algorithm"],["Logistic Regression","Classification"],["Decision Trees","Rule-based prediction"],["Random Forest","Multiple decision trees"],["K-Means","Clustering"]]],
+["Making Models Better","Measure results, diagnose problems and improve.",[
+["Accuracy","Measuring predictions"],["Confusion Matrix","Understanding classification results"],["Overfitting","When a model memorizes"],["Underfitting","When a model learns too little"],["Feature Engineering","Improving input data"]]],
+["Real Machine Learning","Put it all together in a real project and plan ahead.",[
+["ML Project Workflow","From data → model → prediction"],["Train Your First Model","Actual implementation"],["Real-World ML Example","See ML working"],["ML vs Deep Learning","When to use which"],["Your ML Roadmap","Where to go after the challenge"]]]
+];
+var h="",nv="",d=0;
+P.forEach(function(p,i){
+  nv+='<a href="#part-'+(i+1)+'">Part '+(i+1)+'</a>';
+  h+='<section class="part" id="part-'+(i+1)+'"><div class="part-head"><div class="n">0'+(i+1)+'</div><div><h3>'+p[0]+'</h3><p>'+p[1]+'</p></div></div><div class="cards">';
+  p[2].forEach(function(x){d++;h+='<article class="card"><div class="day">Day '+(d<10?'0':'')+d+'</div><h4>'+x[0].replace(/&/g,'&amp;')+'</h4><p>'+x[1]+'</p></article>';});
+  h+='</div></section>';
+});
+document.getElementById('parts').innerHTML=h;
+document.getElementById('nav').innerHTML=nv;
+</script>
+</body>
+</html>
